@@ -61,7 +61,7 @@ typedef struct machine
 	Instruction   reg_MIR;
 	int16_t       reg_MDR;
 	uint8_t       reg_MPC;
-	uint_fast16_t reg_MAR : 12;
+	uint16_t reg_MAR : 12;
 
 	// Memories
 	Instruction* MPM; // Size 256

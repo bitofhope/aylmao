@@ -121,17 +121,17 @@ uint8_t instrtoaddr(Instruction i)
 void printState(Machine m)
 {
 	printf(
-"Registers:\n"            \
-"----------\n"            \
-"A:\t%" PRId16 "\n"       \
-"B:\t%" PRId16 "\n"       \
-"C:\t%" PRId16 "\n"       \
-"D:\t%" PRId16 "\n"       \
-"\n"                      \
-"MPC:\t%" PRIu8      "\n" \
-"MDR:\t%" PRId16     "\n" \
-"MAR:\t%" PRIuFAST16 "\n" \
-"----------\n"            \
+"Registers:\n"        \
+"----------\n"        \
+"A:\t%" PRId16 "\n"   \
+"B:\t%" PRId16 "\n"   \
+"C:\t%" PRId16 "\n"   \
+"D:\t%" PRId16 "\n"   \
+"\n"                  \
+"MPC:\t%" PRIu8  "\n" \
+"MDR:\t%" PRId16 "\n" \
+"MAR:\t%" PRIu16 "\n" \
+"----------\n"        \
 "\n",
 	    m.reg_A, m.reg_B, m.reg_C, m.reg_D, m.reg_MPC, m.reg_MDR, m.reg_MAR);
 }

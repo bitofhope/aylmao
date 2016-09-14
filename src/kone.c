@@ -21,6 +21,10 @@ void initMachine(Machine* m, Instruction* mpm, int16_t* mm)
 
 void clock1(Machine* m)
 {
+	m->DC1 = 0;
+	m->DC2 = 0;
+	m->DC3 = 0;
+
 	if (m->reg_MIR.w1)
 		m->DC1 = 1;
 	if (m->reg_MIR.wMDR)
@@ -74,7 +78,7 @@ void clock4(Machine* m)
 {
 	m->DC1 = 0;
 	m->DC2 = 0;
-	m->DC2 = 0;
+	m->DC3 = 0;
 
 	if (m->reg_MIR.MPCw1)
 		m->DC1 = 1;
@@ -95,7 +99,7 @@ void clock4(Machine* m)
 
 void clock5(Machine* m)
 {
-	m->reg_MPC = m->DC1;
+	m->reg_MPC = m->DC3;
 	m->reg_MIR = m->MPM[m->reg_MPC];
 }
 
@@ -120,7 +124,9 @@ uint8_t instrtoaddr(Instruction i)
 
 void printState(Machine m)
 {
+	char* inst = insttostr(m.reg_MIR);
 	printf(
+"Current instruction: %s\n"
 "Registers:\n"        \
 "----------\n"        \
 "A:\t%" PRId16 "\n"   \
@@ -133,6 +139,39 @@ void printState(Machine m)
 "MAR:\t%" PRIu16 "\n" \
 "----------\n"        \
 "\n",
-	    m.reg_A, m.reg_B, m.reg_C, m.reg_D, m.reg_MPC, m.reg_MDR, m.reg_MAR);
+	    inst, m.reg_A, m.reg_B, m.reg_C, m.reg_D,
+		m.reg_MPC, m.reg_MDR, m.reg_MAR);
+
+	free(inst);
+}
+
+char* insttostr(Instruction i)
+{
+	char* ret = (char*)calloc(sizeof('0'), 23);
+	
+	ret[0]  = i.wA       ? '1' : '0';
+	ret[1]  = i.wB       ? '1' : '0';
+	ret[2]  = i.wC       ? '1' : '0';
+	ret[3]  = i.wD       ? '1' : '0';
+	ret[4]  = i.w1       ? '1' : '0';
+	ret[5]  = i.wMDR     ? '1' : '0';
+	ret[6]  = i.compl    ? '1' : '0';
+	ret[7]  = i.lshift   ? '1' : '0';
+	ret[8]  = i.rtoA     ? '1' : '0';
+	ret[9]  = i.rtoB     ? '1' : '0';
+	ret[10] = i.rtoC     ? '1' : '0';
+	ret[11] = i.rtoD     ? '1' : '0';
+	ret[12] = i.rtoMDR   ? '1' : '0';
+	ret[13] = i.rtoMAR   ? '1' : '0';
+	ret[14] = i.memtoMDR ? '1' : '0';
+	ret[15] = i.MDRtomem ? '1' : '0';
+	ret[16] = i.MPCw1    ? '1' : '0';
+	ret[17] = i.MPCwMIR8 ? '1' : '0';
+	ret[18] = i.MPCA0    ? '1' : '0';
+	ret[19] = i.MPCAneg  ? '1' : '0';
+	ret[20] = i.MPCwMDR4 ? '1' : '0';
+	ret[21] = i.MPCwMPC  ? '1' : '0';
+
+	return ret;
 }
 

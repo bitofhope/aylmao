@@ -15,3 +15,5 @@ uint8_t instrtoaddr(Instruction);
 
 void printState(Machine m);
 
+char* insttostr(Instruction i);
+

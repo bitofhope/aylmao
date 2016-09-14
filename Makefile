@@ -1,11 +1,15 @@
 CC ?= clang
 CFLAGS += -std=c99 -Wall
 
-all: kone.o
+aylmao-cli: obj/aylmao-cli.o obj/kone.o
+	${CC} ${LDFLAGS} $^ -o $@
+
+obj/%.o : src/%.c
+	${CC} ${CFLAGS} $^ -c -o $@
+
+%.o : obj/%.o
 
 clean:
 	rm obj/*
-
-%.o: src/%.c
-	${CC} ${CFLAGS} $^ -c -o obj/$@
+	rm aylmao-cli
 

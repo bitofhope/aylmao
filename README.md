@@ -19,7 +19,7 @@ Installation
 Usage
 -----
 
-Create a file containing the microcode in the form of ones and zeros. NB! *Not* a binary file, but plaintext zeros and ones.
+Create a file containing the microcode in the form of ones and zeros. NB! *Not* a binary file, but plaintext zeros and ones. Any other characters can be used for comments.
 
-run using `./aylmao-git -sv microcodefile`
+run using `./aylmao-cli -sv microcodefile`
 

@@ -90,11 +90,12 @@ int main(int argc, char* argv[])
 		if (verbose)
 		{
 			printState(m);
-			eprintf("--------------------------------------------------------\n");
 		}
 		if (step)
 			quit = getchar();
 	} while (quit != 'q');
+	
+	printState(m);
 }
 
 Instruction parse01inst(FILE* f)
@@ -225,7 +226,7 @@ void usage(void)
 "\t-h\tDisplay this help and exit\n"
 "\n"
 "\t-s\tStep, wait for newline after every clock\n"
-"\t-v\tVerbose, show machine state after every clock phase\n");
+"\t-v\tVerbose, show machine state after every clock\n");
 	exit (EXIT_FAILURE);
 }
 

@@ -19,9 +19,10 @@
 #include "kone.h"
 #include "util.h"
 
+bool read01(FILE* f);
+Instruction nullinst(void);
 Instruction parse01inst(FILE* f);
 void usage(void);
-Instruction nullinst(void);
 
 int main(int argc, char* argv[])
 {
@@ -100,123 +101,54 @@ int main(int argc, char* argv[])
 
 Instruction parse01inst(FILE* f)
 {
-	Instruction i;
-	char c = '\0';
+	Instruction ret = {
+		.wA =       read01(f),
+		.wB =       read01(f),
+		.wC =       read01(f),
+		.wD =       read01(f),
+		.w1 =       read01(f),
+		.wMDR =     read01(f),
+		.compl =    read01(f),
+		.lshift =   read01(f),
+		.rtoA =     read01(f),
+		.rtoB =     read01(f),
+		.rtoC =     read01(f),
+		.rtoD =     read01(f),
+		.rtoMDR =   read01(f),
+		.rtoMAR =   read01(f),
+		.memtoMDR = read01(f),
+		.MDRtomem = read01(f),
+		.MPCw1 =    read01(f),
+		.MPCwMIR8 = read01(f),
+		.MPCA0 =    read01(f),
+		.MPCAneg =  read01(f),
+		.MPCwMDR4 = read01(f),
+		.MPCwMPC =  read01(f)
+	};
 
-	// Brace yourself, this is gonna be ugly.
-	
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.wA = (c == '1') ? true : false;
+	return ret;
+}
 
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.wB = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.wC = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.wD = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.w1 = (c == '1') ? true : false;
-	
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.wMDR = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.compl = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.lshift = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.rtoA = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.rtoB = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.rtoC = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.rtoD = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.rtoMDR = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.rtoMAR = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.memtoMDR = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.MDRtomem = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.MPCw1 = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.MPCwMIR8 = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.MPCA0 = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.MPCAneg = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.MPCwMDR4 = (c == '1') ? true : false;
-
-	while ((c = fgetc(f)) != '1' && (c != '0') && (c != EOF))
-		if (c == EOF)
-			return nullinst();
-	i.MPCwMPC = (c == '1') ? true : false;
-
-	// Finally over
-	return i;
+bool read01(FILE* f)
+{
+	bool done = false;
+	char c;
+	while (!done)
+	{
+		switch ((c = fgetc(f)))
+		{
+			case '1':
+				return true;
+				break; // Notreached
+			case '0':
+				return false;
+				break; // Notreached
+			case EOF:
+				return false;
+				break; // Notreached
+		}
+	}
+	return false; // Notreached
 }
 
 void usage(void)

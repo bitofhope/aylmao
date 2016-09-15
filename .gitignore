@@ -1,3 +1,4 @@
-obj/*
-./aylmao-cli
+# Ignored files
+*.o
+/aylmao-cli
 
